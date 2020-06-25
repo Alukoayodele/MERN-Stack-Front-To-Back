@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const morgan = require('morgan');
 const cors = require('cors');
+const passport = require('passport');
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
 const profile = require('./routes/api/profile');
@@ -14,8 +15,11 @@ app.use(morgan('tiny'));
 
 connectDB();
 
-app.get('/', (req, res) => res.send('Hello'));
+// Passport middleware
+app.use(passport.initialize());
 
+// Passport Config
+require('./config/passport')(passport);
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/posts', posts);

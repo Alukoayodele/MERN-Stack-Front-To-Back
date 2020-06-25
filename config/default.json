@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://Ayodele009:AYOkunnumi009@devconnector-de8kx.mongodb.net/DevConnector?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://Ayodele009:AYOkunnumi009@devconnector-de8kx.mongodb.net/DevConnector?retryWrites=true&w=majority",
+  "jwtSecret": "secretMi"
 }
