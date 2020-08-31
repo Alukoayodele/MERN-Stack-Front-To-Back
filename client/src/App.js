@@ -1,7 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utilis/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
@@ -17,6 +22,8 @@ import AddExperience from './components/add-credentials/AddExperience';
 import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 import { clearCurrentProfile } from './actions/profileActions';
 import PrivateRoute from './components/common/PrivateRoute';
 import './App.css';
@@ -86,8 +93,18 @@ const App = () => {
                 component={AddEducation}
               />
             </Switch>
-
-            <Route path='/not-found' component={NotFound} />
+            <Switch>
+              <PrivateRoute exact path='/feed' component={Posts} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path='/post/:id' component={Post} />
+            </Switch>
+            <Switch>
+              <Route path='/not-found' component={NotFound} />
+            </Switch>
+            <Switch>
+              <Redirect to='not-found' />
+            </Switch>
           </div>
           <Footer />
         </div>

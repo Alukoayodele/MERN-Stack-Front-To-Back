@@ -13,16 +13,20 @@ const ProfileGithub = ({ username, refs }) => {
 
   const { count, sort, clientId, clientSecret } = details;
   useEffect(() => {
+    let isMounted = true;
     fetch(
       `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}$client_id=${clientId}&client_secret=${clientSecret}`
     )
       .then((res) => res.json())
       .then((data) => {
-        if (myRef) {
+        if (isMounted) {
           return setDetails({ repos: data });
         }
       })
       .catch((err) => console.log(err));
+    return () => {
+      isMounted = false;
+    };
     // eslint-disable-next-line
   }, []);
 
